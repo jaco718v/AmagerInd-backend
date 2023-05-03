@@ -1,5 +1,7 @@
 package dat3.amager_records_backend.configuration;
 
+import dat3.amager_records_backend.entity.News;
+import dat3.amager_records_backend.repository.NewsRepository;
 import dat3.security.entity.Role;
 import dat3.security.entity.UserWithRoles;
 import org.springframework.boot.ApplicationArguments;
@@ -12,8 +14,11 @@ public class SetupDevUsers implements ApplicationRunner {
 
     UserWithRolesRepository userWithRolesRepository;
     String passwordUsedByAll;
+    NewsRepository newsRepository;
 
-    public SetupDevUsers(UserWithRolesRepository userWithRolesRepository) {
+
+    public SetupDevUsers(UserWithRolesRepository userWithRolesRepository, NewsRepository newsRepository) {
+        this.newsRepository = newsRepository;
         this.userWithRolesRepository = userWithRolesRepository;
         passwordUsedByAll = "test12";
     }
@@ -33,6 +38,11 @@ public class SetupDevUsers implements ApplicationRunner {
         System.out.println("******* REMOVE THIS BEFORE DEPLOYMENT, AND SETUP DEFAULT USERS DIRECTLY  *****");
         System.out.println("**** ** ON YOUR REMOTE DATABASE                 ******************************");
         System.out.println("******************************************************************************");
+
+        News news1 = new News("hej","her Står noget text", "meget vigtig!");
+        newsRepository.save(news1);
+
+
         /*
         UserWithRoles user1 = new UserWithRoles("user1", passwordUsedByAll, "user1@a.dk");
         UserWithRoles user2 = new UserWithRoles("user2", passwordUsedByAll, "user2@a.dk");
