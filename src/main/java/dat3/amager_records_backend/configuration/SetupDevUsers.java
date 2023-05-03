@@ -1,7 +1,12 @@
 package dat3.amager_records_backend.configuration;
 
+
 import dat3.amager_records_backend.entity.News;
 import dat3.amager_records_backend.repository.NewsRepository;
+
+import dat3.amager_records_backend.entity.Vinyl;
+import dat3.amager_records_backend.repository.VinylRepository;
+
 import dat3.security.entity.Role;
 import dat3.security.entity.UserWithRoles;
 import org.springframework.boot.ApplicationArguments;
@@ -13,14 +18,17 @@ import dat3.security.repository.UserWithRolesRepository;
 public class SetupDevUsers implements ApplicationRunner {
 
     UserWithRolesRepository userWithRolesRepository;
+
+    VinylRepository vinylRepository;
+
     String passwordUsedByAll;
     NewsRepository newsRepository;
 
-
-    public SetupDevUsers(UserWithRolesRepository userWithRolesRepository, NewsRepository newsRepository) {
-        this.newsRepository = newsRepository;
+    public SetupDevUsers(UserWithRolesRepository userWithRolesRepository, VinylRepository vinylRepository, NewsRepository newsRepository) {
         this.userWithRolesRepository = userWithRolesRepository;
+        this.vinylRepository = vinylRepository;
         passwordUsedByAll = "test12";
+        this.newsRepository = newsRepository;
     }
 
     @Override
@@ -58,5 +66,9 @@ public class SetupDevUsers implements ApplicationRunner {
         userWithRolesRepository.save(user3);
         userWithRolesRepository.save(user4);
          */
+        Vinyl vinyl = new Vinyl("David Bowie", "Hunky Dory", "UK", 1971, "SF 8244", "Rock", "Billede", 3000);
+        Vinyl vinyl2 = new Vinyl("Pink Floyd", "The Wall", "UK", 1980, "LSP 3467", "Rock", "Billede", 200);
+        vinylRepository.save(vinyl);
+        vinylRepository.save(vinyl2);
     }
 }
