@@ -4,6 +4,7 @@ import dat3.amager_records_backend.dto.EventRequest;
 import dat3.amager_records_backend.dto.EventResponse;
 import dat3.amager_records_backend.entity.EventEntity;
 import dat3.amager_records_backend.repository.EventRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,17 @@ public class EventService {
     this.eventRepository=eventRepository;
   }
 
+  public long getEventsTotal(){
+    return eventRepository.count();
+  }
+
   public EventResponse getEventById(long id){
     EventEntity event = eventRepository.findById(id).get();
     return new EventResponse(event);
   }
 
-  public List<EventResponse> getAllEvents(){
-    List<EventEntity> eventList  = eventRepository.findAll();
+  public List<EventResponse> getAllEvents(Pageable pageable){
+    List<EventEntity> eventList  = eventRepository.findAll(pageable).getContent();
     List<EventResponse> eventResponseList = eventList.stream().map(EventResponse::new).toList();
     return eventResponseList;
   }
