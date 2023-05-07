@@ -9,7 +9,9 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -31,6 +33,10 @@ public class EventEntity {
 
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
   private LocalDateTime dateTime;
+
+  @JsonFormat(pattern = "yyyy-MM-dd")
+  @CreationTimestamp
+  private LocalDate created;
 
   public EventEntity(EventRequest e) {
     this.title = e.getTitle();
