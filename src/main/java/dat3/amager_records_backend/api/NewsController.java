@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/news")
+@RequestMapping("/api/news/")
 public class NewsController {
 
     NewsService newsService;
@@ -40,6 +40,17 @@ public class NewsController {
         newsService.editNews(body,id);
         return ResponseEntity.ok(true);
     }
+    /*
+    @PostMapping("vinyl/{id}")
+    public NewsResponse addVinylToNews(@PathVariable long id){
+        return null;
+    }
+    @PostMapping("event/{id}")
+    public NewsResponse addEventToNews(@PathVariable long id){
+        return null;
+    }
+
+     */
 
     @DeleteMapping("{id}")
     void deleteNewsById(@PathVariable long id) {

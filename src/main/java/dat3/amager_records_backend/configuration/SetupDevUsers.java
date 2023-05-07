@@ -1,7 +1,10 @@
 package dat3.amager_records_backend.configuration;
 
 
+import dat3.amager_records_backend.dto.EventRequest;
+import dat3.amager_records_backend.entity.EventEntity;
 import dat3.amager_records_backend.entity.News;
+import dat3.amager_records_backend.repository.EventRepository;
 import dat3.amager_records_backend.repository.NewsRepository;
 
 import dat3.amager_records_backend.entity.Vinyl;
@@ -14,21 +17,25 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Controller;
 import dat3.security.repository.UserWithRolesRepository;
 
+import java.time.LocalDateTime;
+
 @Controller
 public class SetupDevUsers implements ApplicationRunner {
 
     UserWithRolesRepository userWithRolesRepository;
 
     VinylRepository vinylRepository;
+    EventRepository eventRepository;
 
     String passwordUsedByAll;
     NewsRepository newsRepository;
 
-    public SetupDevUsers(UserWithRolesRepository userWithRolesRepository, VinylRepository vinylRepository, NewsRepository newsRepository) {
+    public SetupDevUsers(UserWithRolesRepository userWithRolesRepository, VinylRepository vinylRepository, NewsRepository newsRepository, EventRepository eventRepository) {
         this.userWithRolesRepository = userWithRolesRepository;
         this.vinylRepository = vinylRepository;
         passwordUsedByAll = "test12";
         this.newsRepository = newsRepository;
+        this.eventRepository = eventRepository;
     }
 
     @Override
@@ -48,6 +55,9 @@ public class SetupDevUsers implements ApplicationRunner {
         System.out.println("******************************************************************************");
 
         News news1 = new News("hej","her Står noget text", "meget vigtig!");
+        EventRequest event = new EventRequest("Event","Koncert","Koncert med George Michael", LocalDateTime.now());
+        EventEntity eventEntity = new EventEntity(event);
+        eventRepository.save(eventEntity);
         newsRepository.save(news1);
 
 

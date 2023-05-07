@@ -1,10 +1,10 @@
 package dat3.amager_records_backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,26 +21,33 @@ public class News {
     private String img;
     private String textField;
     private String headline;
+    @OneToOne
+    private EventEntity event;
     /*
-    private Vinyl vinyl;
-    private Event event;
+    @OneToMany(mappedBy = "news",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Vinyl> vinyls;
 
-
-    public News(String img, String textField, String headline, Vinyl vinyl){
+    public void addVinyl(Vinyl v){
+        if(vinyls ==null){
+            vinyls =new ArrayList<>();
+        }
+        vinyls.add(v);
+    }
+      public News(String img, String textField, String headline, Vinyl vinyl){
         this.img = img;
         this.textField = textField;
         this.headline = headline;
         this.vinyl = vinyl;
     }
-
-
-    public News(String img, String textField, String headlineEvent event){
+     */
+    public News(String img, String textField, String headline, EventEntity event){
         this.img = img;
         this.textField = textField;
         this.headline = headline;
         this.event = event;
     }
-    */
+
+
     public News(String img, String textField, String headline){
         this.img = img;
         this.textField = textField;

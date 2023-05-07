@@ -98,6 +98,8 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.PUT,"/api/vinyl/**").permitAll()
             .requestMatchers(HttpMethod.DELETE,"/api/vinyl/**").permitAll()
 
+            .requestMatchers(HttpMethod.POST,"/api/news/**").permitAll()
+
             //necessary to allow for "nice" JSON Errors
             .requestMatchers("/error").permitAll()
 
