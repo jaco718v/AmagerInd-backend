@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class VinylResponse {
 
+  private long id;
   private String artist;
   private String title;
   private String country;
@@ -19,7 +20,7 @@ public class VinylResponse {
   private String image;
   private int price;
 
-  public VinylResponse(Vinyl vinyl) {
+  public VinylResponse(Vinyl vinyl, boolean includeID) {
     this.artist = vinyl.getArtist();
     this.title = vinyl.getTitle();
     this.country = vinyl.getCountry();
@@ -28,5 +29,8 @@ public class VinylResponse {
     this.genre = vinyl.getGenre();
     this.image = vinyl.getImage();
     this.price = vinyl.getPrice();
+    if (includeID) {
+      this.id = vinyl.getId();
+    }
   }
 }
