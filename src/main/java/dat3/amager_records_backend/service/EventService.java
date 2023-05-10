@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -40,40 +42,32 @@ public class EventService {
     return eventResponseList;
   }
 
-  public EventResponse createEvent(MultipartFile image, String title, String description, String dateTimeString){
+  public EventResponse createEvent(MultipartHttpServletRequest request){
+    EventRequest r = new EventRequest(request);
 
-    title = title.substring(1,title.length()-1);
-    description = description.substring(1,description.length()-1);
-    dateTimeString = dateTimeString.substring(1,dateTimeString.length()-1);
-
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, formatter);
-
-    EventRequest r = new EventRequest(title,description,dateTime);
-    byte[] imageInBytes = null;
-    try{
-       imageInBytes = image.getBytes();
-    }
-    catch (IOException e){
-
-    }
     EventEntity newEvent = new EventEntity(r);
-    newEvent.setImage(imageInBytes);
+
     eventRepository.save(newEvent);
+
     return new EventResponse(newEvent, false);
   }
 
-  public EventResponse updateEvent(EventRequest r, long id){
+  public EventResponse updateEvent(MultipartHttpServletRequest request, long id){
     EventEntity event = eventRepository.findById(id).get();
-    if(r.getTitle() != null){
-      event.setTitle(r.getTitle());
+
+    EventRequest req = new EventRequest(request);
+
+    if(req.getTitle() != null){
+      event.setTitle(req.getTitle());
     }
-    if(r.getDescription() != null){
-      event.setDescription(r.getDescription());
+    if(req.getDescription() != null){
+      event.setDescription(req.getDescription());
     }
-    if(r.getDateTime() != null){
-      event.setDateTime(r.getDateTime());
+    if(req.getDateTime() != null){
+      event.setDateTime(req.getDateTime());
+    }
+    if(req.getImage()!=null){
+      event.setImage(req.getImage());
     }
 
     eventRepository.save(event);

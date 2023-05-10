@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -44,18 +45,19 @@ public class EventController {
   public List<EventResponse> getAllEvents(Pageable pageable){
     return eventService.getAllEvents(pageable);
   }
-  //@PreAuthorize("hasAuthority('ADMIN')")
 
+  @PreAuthorize("hasAuthority('ADMIN')")
   @PostMapping
-  public EventResponse createEvent(@RequestParam("image")MultipartFile image,@RequestParam("title")String title,
-                                   @RequestParam("description")String description, @RequestParam("dateTime") String dateTimeString){
-    return eventService.createEvent(image, title, description, dateTimeString);
+  public EventResponse createEvent(MultipartHttpServletRequest request){
+    return eventService.createEvent(request);
   }
   @PreAuthorize("hasAuthority('ADMIN')")
   @PutMapping("{id}")
-  public EventResponse updateEvent(@RequestBody EventRequest body, @PathVariable long id){
-    return eventService.updateEvent(body,id);
+  public EventResponse updateEvent(MultipartHttpServletRequest request,
+                                   @PathVariable long id){
+    return eventService.updateEvent(request,id);
   }
+
   @PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("{id}")
   public ResponseEntity<String> deleteEvent(@PathVariable long id){

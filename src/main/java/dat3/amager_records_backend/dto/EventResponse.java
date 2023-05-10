@@ -36,12 +36,13 @@ public class EventResponse {
   public EventResponse(EventEntity e, boolean getFull) {
     this.id=e.getId();
     this.title = e.getTitle();
-    this.type = e.getType();
     this.description = e.getDescription();
     this.dateTime = e.getDateTime();
     this.created = e.getCreated();
     if(getFull){
-      this.encodedImage = Base64.getEncoder().encodeToString(e.getImage());
+      if(e.getImage() != null){
+        this.encodedImage = Base64.getEncoder().encodeToString(e.getImage());
+      }
     }
   }
 }

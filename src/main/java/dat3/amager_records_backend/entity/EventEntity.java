@@ -23,8 +23,6 @@ public class EventEntity {
 
   private String title;
 
-  private String type;
-
   private String description;
 
   @Lob
@@ -42,5 +40,6 @@ public class EventEntity {
     this.title = e.getTitle();
     this.description = e.getDescription();
     this.dateTime = e.getDateTime();
+    this.image = e.getImage();
   }
 }

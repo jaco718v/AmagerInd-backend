@@ -101,7 +101,7 @@ public class SecurityConfig {
             //necessary to allow for "nice" JSON Errors
             .requestMatchers("/error").permitAll()
 
-        .requestMatchers("/", "/**").permitAll()
+        //.requestMatchers("/", "/**").permitAll()
 
            // .requestMatchers(HttpMethod.GET,"/api/demo/anonymous").permitAll());
 
