@@ -14,11 +14,14 @@ public class EventRequest {
 
   private String title;
 
-  private String type;
-
   private String description;
 
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
   private LocalDateTime dateTime;
 
+  public EventRequest(String title, String description, LocalDateTime dateTime) {
+    this.title = title;
+    this.description = description;
+    this.dateTime = dateTime;
+  }
 }

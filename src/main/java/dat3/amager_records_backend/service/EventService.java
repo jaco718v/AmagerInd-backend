@@ -8,7 +8,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -26,28 +30,44 @@ public class EventService {
 
   public EventResponse getEventById(long id){
     EventEntity event = eventRepository.findById(id).get();
-    return new EventResponse(event);
+
+    return new EventResponse(event, true);
   }
 
   public List<EventResponse> getAllEvents(Pageable pageable){
     List<EventEntity> eventList  = eventRepository.findAll(pageable).getContent();
-    List<EventResponse> eventResponseList = eventList.stream().map(EventResponse::new).toList();
+    List<EventResponse> eventResponseList = eventList.stream().map(n-> new EventResponse(n,false)).toList();
     return eventResponseList;
   }
 
-  public EventResponse createEvent(EventRequest r){
+  public EventResponse createEvent(MultipartFile image, String title, String description, String dateTimeString){
+
+    title = title.substring(1,title.length()-1);
+    description = description.substring(1,description.length()-1);
+    dateTimeString = dateTimeString.substring(1,dateTimeString.length()-1);
+
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, formatter);
+
+    EventRequest r = new EventRequest(title,description,dateTime);
+    byte[] imageInBytes = null;
+    try{
+       imageInBytes = image.getBytes();
+    }
+    catch (IOException e){
+
+    }
     EventEntity newEvent = new EventEntity(r);
+    newEvent.setImage(imageInBytes);
     eventRepository.save(newEvent);
-    return new EventResponse(newEvent);
+    return new EventResponse(newEvent, false);
   }
 
   public EventResponse updateEvent(EventRequest r, long id){
     EventEntity event = eventRepository.findById(id).get();
     if(r.getTitle() != null){
       event.setTitle(r.getTitle());
-    }
-    if(r.getType() != null){
-      event.setType(r.getType());
     }
     if(r.getDescription() != null){
       event.setDescription(r.getDescription());
@@ -58,7 +78,7 @@ public class EventService {
 
     eventRepository.save(event);
 
-    return new EventResponse(event);
+    return new EventResponse(event,false);
   }
 
   public ResponseEntity<String> deleteEvent(long id){
