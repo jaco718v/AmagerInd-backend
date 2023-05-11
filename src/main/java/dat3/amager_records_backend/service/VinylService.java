@@ -23,20 +23,20 @@ public class VinylService {
   public List<VinylResponse> getVinyls() {
     List<Vinyl> vinyls = vinylRepository.findAll();
 
-    List<VinylResponse> vinylResponses = vinyls.stream().map(v -> new VinylResponse(v)).toList();
+    List<VinylResponse> vinylResponses = vinyls.stream().map(v -> new VinylResponse(v, true)).toList();
     return vinylResponses;
   }
 
   public VinylResponse getVinylByID(long id) {
     Vinyl vinyl = vinylRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vinyl with this id does not exist"));
-    return new VinylResponse(vinyl);
+    return new VinylResponse(vinyl, true);
   }
 
   public VinylResponse addVinyl(VinylRequest vinylRequest) {
 
     Vinyl newVinyl = vinylRequest.getVinylFromRequest(vinylRequest);
     vinylRepository.save(newVinyl);
-    return new VinylResponse(newVinyl);
+    return new VinylResponse(newVinyl, false);
   }
 
   public ResponseEntity<Boolean> editVinyl(long id, VinylRequest vinylRequest) {
