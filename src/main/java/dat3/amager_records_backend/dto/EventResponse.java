@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Base64;
 
 @NoArgsConstructor
 @Setter
@@ -30,12 +31,18 @@ public class EventResponse {
   @CreationTimestamp
   private LocalDate created;
 
-  public EventResponse(EventEntity e) {
+  private String encodedImage;
+
+  public EventResponse(EventEntity e, boolean getFull) {
     this.id=e.getId();
     this.title = e.getTitle();
-    this.type = e.getType();
     this.description = e.getDescription();
     this.dateTime = e.getDateTime();
     this.created = e.getCreated();
+    if(getFull){
+      if(e.getImage() != null){
+        this.encodedImage = Base64.getEncoder().encodeToString(e.getImage());
+      }
+    }
   }
 }

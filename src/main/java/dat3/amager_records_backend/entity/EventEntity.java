@@ -2,15 +2,13 @@ package dat3.amager_records_backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import dat3.amager_records_backend.dto.EventRequest;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -25,11 +23,11 @@ public class EventEntity {
 
   private String title;
 
-  private String type;
-
   private String description;
 
-  //Image?
+  @Lob
+  @Column(name = "image", columnDefinition = "MEDIUMBLOB")
+  private byte[] image;
 
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
   private LocalDateTime dateTime;
@@ -40,8 +38,8 @@ public class EventEntity {
 
   public EventEntity(EventRequest e) {
     this.title = e.getTitle();
-    this.type = e.getType();
     this.description = e.getDescription();
     this.dateTime = e.getDateTime();
+    this.image = e.getImage();
   }
 }
