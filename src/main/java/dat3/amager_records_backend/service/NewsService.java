@@ -3,7 +3,9 @@ package dat3.amager_records_backend.service;
 
 import dat3.amager_records_backend.dto.NewsRequest;
 import dat3.amager_records_backend.dto.NewsResponse;
+import dat3.amager_records_backend.entity.EventEntity;
 import dat3.amager_records_backend.entity.News;
+import dat3.amager_records_backend.repository.EventRepository;
 import dat3.amager_records_backend.repository.NewsRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +19,11 @@ import java.util.Optional;
 public class NewsService {
 
     NewsRepository newsRepository;
+    EventRepository eventRepository;
 
-    public NewsService(NewsRepository newsRepository){
+    public NewsService(NewsRepository newsRepository,EventRepository eventRepository){
         this.newsRepository = newsRepository;
+        this.eventRepository=eventRepository;
     }
 
     public List<NewsResponse> getNews() {
@@ -33,7 +37,7 @@ public class NewsService {
 
     public News findNews(long id) {
 
-        News news = newsRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Movie with this ID doesnt exist"));
+        News news = newsRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "News with this ID doesnt exist"));
 
         return news;
     }
@@ -45,11 +49,13 @@ public class NewsService {
     }
 
     public NewsResponse addNews(NewsRequest newsRequest) {
-
-        News newNews = NewsRequest.getNewsEntity(newsRequest);
-        newNews = newsRepository.save(newNews);
-
-        return new NewsResponse(newNews);
+        if(newsRequest.getEvent()!=null){
+            EventEntity event = eventRepository.findById(newsRequest.getEvent()).orElseThrow();
+            News newNews = newsRequest.getNewsEntity(newsRequest,event);
+            newNews = newsRepository.save(newNews);
+            return new NewsResponse(newNews);
+        }
+        return null;
     }
 
     public ResponseEntity<Boolean> editNews(NewsRequest body, long id) {
