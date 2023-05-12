@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Base64;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,17 +16,21 @@ import lombok.Setter;
 public class NewsResponse {
 
     private long id;
-    private String img;
+    private String encodedImage;
     private String textField;
     private String headline;
     //private Vinyl vinyl;
     //private Event event;
 
-    public NewsResponse(News news){
+    public NewsResponse(News news, boolean getImage){
         this.id = news.getId();
-        this.img = news.getImg();
         this.textField = news.getTextField();
         this.headline = news.getHeadline();
+        if(getImage){
+            if(news.getImg() != null){
+                this.encodedImage = Base64.getEncoder().encodeToString(news.getImg());
+            }
+        }
         /*
         if(news.getVinyl() != null){
             this.vinyl = news.getVinyl();

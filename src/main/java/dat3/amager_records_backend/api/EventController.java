@@ -36,10 +36,15 @@ public class EventController {
 
 
   @GetMapping("{id}")
-  public EventResponse getEventById(Pageable pageable, @PathVariable long id){
+  public EventResponse getEventById(@PathVariable long id){
     return eventService.getEventById(id);
   }
 
+
+  @GetMapping("short")
+  public List<EventResponse> getAllEventsShort(Pageable pageable){
+    return eventService.getAllEventsShort();
+  }
 
   @GetMapping
   public List<EventResponse> getAllEvents(Pageable pageable){
