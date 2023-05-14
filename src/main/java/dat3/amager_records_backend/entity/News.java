@@ -18,7 +18,9 @@ public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String img;
+    @Lob
+    @Column(name = "image", columnDefinition = "MEDIUMBLOB")
+    private byte[] img;
     private String textField;
     private String headline;
     @OneToOne
@@ -40,7 +42,7 @@ public class News {
         this.vinyl = vinyl;
     }
      */
-    public News(String img, String textField, String headline, EventEntity event){
+    public News(byte[] img, String textField, String headline, EventEntity event){
         this.img = img;
         this.textField = textField;
         this.headline = headline;
@@ -48,7 +50,8 @@ public class News {
     }
 
 
-    public News(String img, String textField, String headline){
+
+    public News(byte[] img, String textField, String headline){
         this.img = img;
         this.textField = textField;
         this.headline = headline;

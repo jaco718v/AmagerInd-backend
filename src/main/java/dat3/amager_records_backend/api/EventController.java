@@ -36,10 +36,15 @@ public class EventController {
 
 
   @GetMapping("{id}")
-  public EventResponse getEventById(Pageable pageable, @PathVariable long id){
+  public EventResponse getEventById(@PathVariable long id){
     return eventService.getEventById(id);
   }
 
+
+  @GetMapping("short")
+  public List<EventResponse> getAllEventsShort(Pageable pageable){
+    return eventService.getAllEventsShort();
+  }
 
   @GetMapping
   public List<EventResponse> getAllEvents(Pageable pageable){
@@ -49,13 +54,15 @@ public class EventController {
   @PreAuthorize("hasAuthority('ADMIN')")
   @PostMapping
   public EventResponse createEvent(MultipartHttpServletRequest request){
-    return eventService.createEvent(request);
+    EventRequest req = eventService.createEventRequestFromMulti(request);
+    return eventService.createEvent(req);
   }
   @PreAuthorize("hasAuthority('ADMIN')")
   @PutMapping("{id}")
   public EventResponse updateEvent(MultipartHttpServletRequest request,
                                    @PathVariable long id){
-    return eventService.updateEvent(request,id);
+    EventRequest req = eventService.createEventRequestFromMulti(request);
+    return eventService.updateEvent(req, id);
   }
 
   @PreAuthorize("hasAuthority('ADMIN')")
