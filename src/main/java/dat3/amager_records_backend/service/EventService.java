@@ -36,9 +36,15 @@ public class EventService {
     return new EventResponse(event, true);
   }
 
+  public List<EventResponse> getAllEventsShort(){
+    List<EventEntity> eventList  = eventRepository.findAllEventsShortened();
+    List<EventResponse> eventResponseList = eventList.stream().map(n-> new EventResponse(n,true)).toList();
+    return eventResponseList;
+  }
+
   public List<EventResponse> getAllEvents(Pageable pageable){
     List<EventEntity> eventList  = eventRepository.findAll(pageable).getContent();
-    List<EventResponse> eventResponseList = eventList.stream().map(n-> new EventResponse(n,false)).toList();
+    List<EventResponse> eventResponseList = eventList.stream().map(n-> new EventResponse(n,true)).toList();
     return eventResponseList;
   }
 

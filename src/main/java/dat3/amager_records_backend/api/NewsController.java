@@ -3,9 +3,11 @@ package dat3.amager_records_backend.api;
 import dat3.amager_records_backend.dto.NewsRequest;
 import dat3.amager_records_backend.dto.NewsResponse;
 import dat3.amager_records_backend.service.NewsService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.util.List;
 
@@ -20,9 +22,14 @@ public class NewsController {
         this.newsService = newsService;
     }
 
+    @GetMapping("total")
+    public long getTotal(){
+        return newsService.getTotal();
+    }
+
     @GetMapping
-    List<NewsResponse> getNews(){
-        return newsService.getNews();
+    List<NewsResponse> getNews(Pageable pageable){
+        return newsService.getNews(pageable);
     }
 
     @GetMapping("{id}")
@@ -30,13 +37,15 @@ public class NewsController {
         return newsService.findNewsById(id);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    NewsResponse addNews(@RequestBody NewsRequest body){
+    @PostMapping()
+    NewsResponse addNews(MultipartHttpServletRequest request){
+        NewsRequest body = newsService.makeNewsRequestFromMulti(request);
         return newsService.addNews(body);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Boolean> editNews(@PathVariable long id, @RequestBody NewsRequest body) {
+    public ResponseEntity<Boolean> editNews(@PathVariable long id, MultipartHttpServletRequest request) {
+        NewsRequest body = newsService.makeNewsRequestFromMulti(request);
         newsService.editNews(body,id);
         return ResponseEntity.ok(true);
     }
