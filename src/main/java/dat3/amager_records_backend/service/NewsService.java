@@ -7,9 +7,11 @@ import dat3.amager_records_backend.entity.EventEntity;
 import dat3.amager_records_backend.entity.News;
 import dat3.amager_records_backend.repository.EventRepository;
 import dat3.amager_records_backend.repository.NewsRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -26,10 +28,19 @@ public class NewsService {
         this.eventRepository=eventRepository;
     }
 
-    public List<NewsResponse> getNews() {
+    public NewsRequest makeNewsRequestFromMulti(MultipartHttpServletRequest req){
 
-        List<News> news1 = newsRepository.findAll();
-        List<NewsResponse> newsResponse = news1.stream().map(news -> new NewsResponse(news)).toList();
+        return new NewsRequest(req);
+    }
+
+    public long getTotal(){
+        return newsRepository.count();
+    }
+
+    public List<NewsResponse> getNews(Pageable pageable) {
+
+        List<News> news1 = newsRepository.findAll(pageable).getContent();
+        List<NewsResponse> newsResponse = news1.stream().map(news -> new NewsResponse(news,true)).toList();
 
         return newsResponse;
 
@@ -44,16 +55,16 @@ public class NewsService {
 
     public NewsResponse findNewsById(long id){
         News news1 = findNews(id);
-        NewsResponse newsResponse = new NewsResponse(news1);
+        NewsResponse newsResponse = new NewsResponse(news1,true);
         return  newsResponse;
     }
 
     public NewsResponse addNews(NewsRequest newsRequest) {
-        if(newsRequest.getEvent()!=null){
-            EventEntity event = eventRepository.findById(newsRequest.getEvent()).orElseThrow();
+        if(newsRequest.getEventId()!=null){
+            EventEntity event = eventRepository.findById(newsRequest.getEventId()).orElseThrow();
             News newNews = newsRequest.getNewsEntity(newsRequest,event);
             newNews = newsRepository.save(newNews);
-            return new NewsResponse(newNews);
+            return new NewsResponse(newNews,false);
         }
         return null;
     }

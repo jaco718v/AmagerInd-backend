@@ -58,7 +58,8 @@ public class SetupDevUsers implements ApplicationRunner {
         //EventRequest event = new EventRequest("Event","Koncert","Koncert med George Michael", LocalDateTime.now());
         //EventEntity eventEntity = new EventEntity(event);
         //eventRepository.save(eventEntity);
-        newsRepository.save(news1);
+
+
 
 
         /*
