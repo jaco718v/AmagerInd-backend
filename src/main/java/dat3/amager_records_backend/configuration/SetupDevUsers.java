@@ -53,6 +53,7 @@ public class SetupDevUsers implements ApplicationRunner {
         System.out.println("******* REMOVE THIS BEFORE DEPLOYMENT, AND SETUP DEFAULT USERS DIRECTLY  *****");
         System.out.println("**** ** ON YOUR REMOTE DATABASE                 ******************************");
         System.out.println("******************************************************************************");
+<<<<<<<<< Temporary merge branch 1
 
         News news1 = new News("hej","her Står noget text", "meget vigtig!");
         //EventRequest event = new EventRequest("Event","Koncert","Koncert med George Michael", LocalDateTime.now());
