@@ -60,13 +60,13 @@ public class NewsService {
     }
 
     public NewsResponse addNews(NewsRequest newsRequest) {
+        News newNews = new News(newsRequest);
         if(newsRequest.getEventId()!=null){
             EventEntity event = eventRepository.findById(newsRequest.getEventId()).orElseThrow();
-            News newNews = newsRequest.getNewsEntity(newsRequest,event);
-            newNews = newsRepository.save(newNews);
-            return new NewsResponse(newNews,false);
+            newNews.setEvent(event);
         }
-        return null;
+        newNews = newsRepository.save(newNews);
+        return new NewsResponse(newNews,false);
     }
 
     public ResponseEntity<Boolean> editNews(NewsRequest body, long id) {
