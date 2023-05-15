@@ -51,13 +51,13 @@ public class EventController {
     return eventService.getAllEvents(pageable);
   }
 
-  @PreAuthorize("hasAuthority('ADMIN')")
+  //@PreAuthorize("hasAuthority('ADMIN')")
   @PostMapping
   public EventResponse createEvent(MultipartHttpServletRequest request){
     EventRequest req = eventService.createEventRequestFromMulti(request);
     return eventService.createEvent(req);
   }
-  @PreAuthorize("hasAuthority('ADMIN')")
+  //@PreAuthorize("hasAuthority('ADMIN')")
   @PutMapping("{id}")
   public EventResponse updateEvent(MultipartHttpServletRequest request,
                                    @PathVariable long id){
@@ -65,7 +65,7 @@ public class EventController {
     return eventService.updateEvent(req, id);
   }
 
-  @PreAuthorize("hasAuthority('ADMIN')")
+  //@PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("{id}")
   public ResponseEntity<String> deleteEvent(@PathVariable long id){
     return eventService.deleteEvent(id);

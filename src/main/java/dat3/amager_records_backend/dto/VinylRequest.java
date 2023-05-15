@@ -21,4 +21,15 @@ public class VinylRequest {
   public static Vinyl getVinylFromRequest(VinylRequest vinylRequest) {
     return new Vinyl(vinylRequest.artist, vinylRequest.title, vinylRequest.country, vinylRequest.year, vinylRequest.label, vinylRequest.genre, vinylRequest.image, vinylRequest.price);
   }
+
+  public VinylRequest(String artist, String title, String country, int year, String label, String genre, String image, int price) {
+    this.artist = artist;
+    this.title = title;
+    this.country = country;
+    this.year = year;
+    this.label = label;
+    this.genre = genre;
+    this.image = image;
+    this.price = price;
+  }
 }

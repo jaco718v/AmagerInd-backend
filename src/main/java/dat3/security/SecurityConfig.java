@@ -97,6 +97,10 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST,"/api/vinyl/**").permitAll()
             .requestMatchers(HttpMethod.PUT,"/api/vinyl/**").permitAll()
             .requestMatchers(HttpMethod.DELETE,"/api/vinyl/**").permitAll()
+            .requestMatchers(HttpMethod.POST,"/api/events/**").permitAll()
+            .requestMatchers(HttpMethod.POST,"/api/news/**").permitAll()
+            .requestMatchers(HttpMethod.GET,"/api/events/**").permitAll()
+            .requestMatchers(HttpMethod.GET,"/api/news/**").permitAll()
 
             .requestMatchers(HttpMethod.POST,"/api/news/**").permitAll()
             .requestMatchers(HttpMethod.GET,"/api/news/**").permitAll()
