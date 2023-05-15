@@ -92,6 +92,7 @@ public class EventResponse {
   public String dayTime(LocalDateTime localDateTime) {
     int hour = localDateTime.getHour();
     int minute = localDateTime.getMinute();
+    String formattedMinute = String.format("%02d", minute);
     DayOfWeek weekday = localDateTime.getDayOfWeek();
 
     String danishWeekDay;
@@ -112,7 +113,7 @@ public class EventResponse {
       danishWeekDay = "Søndag";
     }
 
-    return danishWeekDay + " kl. " + hour + "." + minute;
+    return danishWeekDay + " kl. " + hour + "." + formattedMinute;
 
   }
 }
