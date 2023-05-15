@@ -19,6 +19,7 @@ public class NewsResponse {
     private String encodedImage;
     private String textField;
     private String headline;
+    private int priority;
     //private Vinyl vinyl;
     //private Event event;
 
@@ -26,6 +27,7 @@ public class NewsResponse {
         this.id = news.getId();
         this.textField = news.getTextField();
         this.headline = news.getHeadline();
+        this.priority = news.getPriority();
         if(getImage){
             if(news.getImg() != null){
                 this.encodedImage = Base64.getEncoder().encodeToString(news.getImg());

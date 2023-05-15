@@ -23,6 +23,7 @@ public class News {
     private byte[] img;
     private String textField;
     private String headline;
+    private int priority;
     @OneToOne
     private EventEntity event;
     /*
@@ -42,19 +43,21 @@ public class News {
         this.vinyl = vinyl;
     }
      */
-    public News(byte[] img, String textField, String headline, EventEntity event){
+    public News(byte[] img, String textField, String headline, int priority, EventEntity event){
         this.img = img;
         this.textField = textField;
         this.headline = headline;
+        this.priority = priority;
         this.event = event;
     }
 
 
 
-    public News(byte[] img, String textField, String headline){
+    public News(byte[] img, String textField, String headline, int priority){
         this.img = img;
         this.textField = textField;
         this.headline = headline;
+        this.priority = priority;
 
     }
 
