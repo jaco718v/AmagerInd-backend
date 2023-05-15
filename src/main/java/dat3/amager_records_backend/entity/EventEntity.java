@@ -42,4 +42,10 @@ public class EventEntity {
     this.dateTime = e.getDateTime();
     this.image = e.getImage();
   }
+
+  public EventEntity(String title, String description, LocalDateTime dateTime) {
+    this.title = title;
+    this.description = description;
+    this.dateTime = dateTime;
+  }
 }

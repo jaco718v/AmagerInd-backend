@@ -54,13 +54,15 @@ public class EventController {
   @PreAuthorize("hasAuthority('ADMIN')")
   @PostMapping
   public EventResponse createEvent(MultipartHttpServletRequest request){
-    return eventService.createEvent(request);
+    EventRequest req = eventService.createEventRequestFromMulti(request);
+    return eventService.createEvent(req);
   }
   @PreAuthorize("hasAuthority('ADMIN')")
   @PutMapping("{id}")
   public EventResponse updateEvent(MultipartHttpServletRequest request,
                                    @PathVariable long id){
-    return eventService.updateEvent(request,id);
+    EventRequest req = eventService.createEventRequestFromMulti(request);
+    return eventService.updateEvent(req, id);
   }
 
   @PreAuthorize("hasAuthority('ADMIN')")

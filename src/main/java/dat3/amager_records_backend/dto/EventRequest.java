@@ -58,4 +58,10 @@ public class EventRequest {
     this.dateTime = stringToDate(r.getParameter("dateTime").replaceAll("^\"|\"$", ""));
     this.image = imageToByte(r.getFile("image"));
   }
+
+  public EventRequest(String title, String description, LocalDateTime dateTime) {
+    this.title = title;
+    this.description = description;
+    this.dateTime = dateTime;
+  }
 }

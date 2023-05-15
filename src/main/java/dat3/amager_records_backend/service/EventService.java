@@ -48,20 +48,24 @@ public class EventService {
     return eventResponseList;
   }
 
-  public EventResponse createEvent(MultipartHttpServletRequest request){
-    EventRequest r = new EventRequest(request);
+  public EventRequest createEventRequestFromMulti(MultipartHttpServletRequest request){
 
-    EventEntity newEvent = new EventEntity(r);
+    return new EventRequest(request);
+
+  }
+
+  public EventResponse createEvent(EventRequest req){
+    EventEntity newEvent = new EventEntity(req);
 
     eventRepository.save(newEvent);
 
     return new EventResponse(newEvent, false);
   }
 
-  public EventResponse updateEvent(MultipartHttpServletRequest request, long id){
-    EventEntity event = eventRepository.findById(id).get();
 
-    EventRequest req = new EventRequest(request);
+  public EventResponse updateEvent(EventRequest req, long id){
+
+    EventEntity event = eventRepository.findById(id).get();
 
     if(req.getTitle() != null){
       event.setTitle(req.getTitle());
