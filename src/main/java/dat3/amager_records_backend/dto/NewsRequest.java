@@ -70,6 +70,8 @@ public class NewsRequest {
         ;
         this.headline = r.getParameter("headline").replaceAll("^\"|\"$", "");
         ;
+        this.priority = Integer.parseInt(r.getParameter("priority").replaceAll("^\"|\"$", ""));
+        ;
         this.eventId = Long.parseLong(r.getParameter("event").replaceAll("^\"|\"$", ""));
     }
 }
