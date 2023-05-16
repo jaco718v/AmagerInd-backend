@@ -59,6 +59,7 @@ public class NewsService {
         return  newsResponse;
     }
 
+
     public NewsResponse addNews(NewsRequest newsRequest) {
         News newNews = new News(newsRequest);
         if(newsRequest.getEventId()!=null){

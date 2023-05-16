@@ -56,6 +56,7 @@ public class News {
         this.img = r.getImg();
         this.textField = r.getTextField();
         this.headline = r.getHeadline();
+        this.priority = r.getPriority();
     }
 
     public News(byte[] img, String textField, String headline, int priority){
