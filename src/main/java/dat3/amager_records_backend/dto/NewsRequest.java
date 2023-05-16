@@ -65,9 +65,11 @@ public class NewsRequest {
     public NewsRequest(MultipartHttpServletRequest r) {
         this.img = imageToByte(r.getFile("image"));
         this.textField = r.getParameter("textField").replaceAll("^\"|\"$", "");
-        ;
+
         this.headline = r.getParameter("headline").replaceAll("^\"|\"$", "");
-        ;
+
+        if(!r.getParameter(("event")).equals("\"\"")){
         this.eventId = Long.parseLong(r.getParameter("event").replaceAll("^\"|\"$", ""));
+        }
     }
 }
