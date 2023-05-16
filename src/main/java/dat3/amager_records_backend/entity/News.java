@@ -1,5 +1,6 @@
 package dat3.amager_records_backend.entity;
 
+import dat3.amager_records_backend.dto.NewsRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -51,7 +52,11 @@ public class News {
         this.event = event;
     }
 
-
+    public News(NewsRequest r){
+        this.img = r.getImg();
+        this.textField = r.getTextField();
+        this.headline = r.getHeadline();
+    }
 
     public News(byte[] img, String textField, String headline, int priority){
         this.img = img;
