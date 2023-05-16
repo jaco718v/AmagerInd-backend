@@ -54,7 +54,8 @@ public class SetupDevUsers implements ApplicationRunner {
         System.out.println("**** ** ON YOUR REMOTE DATABASE                 ******************************");
         System.out.println("******************************************************************************");
 
-        News news1 = new News("hej","her Står noget text", "meget vigtig!");
+        News news1 = new News(null, "her Står noget text", "meget vigtig!",1);
+        newsRepository.save(news1);
         //EventRequest event = new EventRequest("Event","Koncert","Koncert med George Michael", LocalDateTime.now());
         //EventEntity eventEntity = new EventEntity(event);
         //eventRepository.save(eventEntity);
@@ -77,6 +78,7 @@ public class SetupDevUsers implements ApplicationRunner {
         userWithRolesRepository.save(user3);
         userWithRolesRepository.save(user4);
          */
+
         Vinyl vinyl = new Vinyl("David Bowie", "Hunky Dory", "UK", 1971, "SF 8244", "Rock", "Billede", 3000);
         Vinyl vinyl2 = new Vinyl("Pink Floyd", "The Wall", "UK", 1980, "LSP 3467", "Rock", "Billede", 200);
         vinylRepository.save(vinyl);
