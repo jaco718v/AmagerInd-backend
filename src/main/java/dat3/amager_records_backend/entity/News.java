@@ -19,14 +19,15 @@ public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Lob
-    @Column(name = "image", columnDefinition = "MEDIUMBLOB")
-    private byte[] img;
+
+    @Column(name = "encoded_image", length = 16777215, columnDefinition = "mediumtext")
+    private String encodedImage;
     private String textField;
     private String headline;
     private int priority;
     @OneToOne
     private EventEntity event;
+
     /*
     @OneToMany(mappedBy = "news",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Vinyl> vinyls;
@@ -44,22 +45,15 @@ public class News {
         this.vinyl = vinyl;
     }
      */
-    public News(byte[] img, String textField, String headline, int priority, EventEntity event){
-        this.img = img;
-        this.textField = textField;
-        this.headline = headline;
-        this.priority = priority;
-        this.event = event;
-    }
 
     public News(NewsRequest r){
-        this.img = r.getImg();
+        this.encodedImage = r.getEncodedImage();
         this.textField = r.getTextField();
         this.headline = r.getHeadline();
     }
 
-    public News(byte[] img, String textField, String headline, int priority){
-        this.img = img;
+    public News(String encodedImage, String textField, String headline, int priority){
+        this.encodedImage = encodedImage;
         this.textField = textField;
         this.headline = headline;
         this.priority = priority;

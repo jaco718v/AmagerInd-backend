@@ -48,11 +48,13 @@ public class EventService {
     return eventResponseList;
   }
 
+  /*
   public EventRequest createEventRequestFromMulti(MultipartHttpServletRequest request){
 
     return new EventRequest(request);
 
   }
+  */
 
   public EventResponse createEvent(EventRequest req){
     EventEntity newEvent = new EventEntity(req);
@@ -76,8 +78,8 @@ public class EventService {
     if(req.getDateTime() != null){
       event.setDateTime(req.getDateTime());
     }
-    if(req.getImage()!=null){
-      event.setImage(req.getImage());
+    if(req.getEncodedImage()!=null){
+      event.setEncodedImage(req.getEncodedImage());
     }
 
     eventRepository.save(event);

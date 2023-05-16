@@ -28,10 +28,12 @@ public class NewsService {
         this.eventRepository=eventRepository;
     }
 
+    /*
     public NewsRequest makeNewsRequestFromMulti(MultipartHttpServletRequest req){
 
         return new NewsRequest(req);
     }
+    */
 
     public long getTotal(){
         return newsRepository.count();
@@ -72,11 +74,12 @@ public class NewsService {
     public ResponseEntity<Boolean> editNews(NewsRequest body, long id) {
 
         News newsToEdit =  findNews(id);
-        Optional.ofNullable(body.getImg()).ifPresent(newsToEdit::setImg);
+        Optional.ofNullable(body.getEncodedImage()).ifPresent(newsToEdit::setEncodedImage);
         Optional.ofNullable(body.getTextField()).ifPresent(newsToEdit::setTextField);
         Optional.ofNullable(body.getHeadline()).ifPresent(newsToEdit::setHeadline);
         //Optional.ofNullable(body.getVinyl()).ifPresent(newsToEdit::setVinyl);
         //Optional.ofNullable(body.getEvent()).ifPresent(newsToEdit::setEvent);
+        newsRepository.save(newsToEdit);
 
 
         return new ResponseEntity(true, HttpStatus.OK);
