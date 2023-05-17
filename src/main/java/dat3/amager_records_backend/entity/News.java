@@ -50,6 +50,7 @@ public class News {
         this.encodedImage = r.getEncodedImage();
         this.textField = r.getTextField();
         this.headline = r.getHeadline();
+        this.priority = r.getPriority();
     }
 
     public News(String encodedImage, String textField, String headline, int priority){
