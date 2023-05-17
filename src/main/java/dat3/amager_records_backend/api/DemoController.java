@@ -34,6 +34,7 @@ public class DemoController {
         return new ResponseEntity<InfoResponse>(new InfoResponse("Hi Authenticated"), HttpStatus.OK);
     }
 
+    /*
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     @GetMapping("/user-admin")
     public ResponseEntity<InfoResponse> getUserAdminInfo() {
@@ -51,6 +52,8 @@ public class DemoController {
     public ResponseEntity<InfoResponse> getUserInfo() {
         return new ResponseEntity<InfoResponse>(new InfoResponse("Hello User"), HttpStatus.OK);
     }
+
+     */
 
     @GetMapping("/user-fromtoken")
     public ResponseEntity<InfoResponse> getUserInfo(Principal p) {
