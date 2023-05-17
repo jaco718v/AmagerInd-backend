@@ -65,7 +65,7 @@ public class EventController {
     return eventService.updateEvent(body, id);
   }
 
-  @PreAuthorize("hasAuthority('ADMIN')")
+  //@PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("{id}")
   public ResponseEntity<String> deleteEvent(@PathVariable long id){
     return eventService.deleteEvent(id);

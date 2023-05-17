@@ -61,10 +61,14 @@ public class NewsService {
         return  newsResponse;
     }
 
-    public NewsResponse addNews(NewsRequest newsRequest) {
-        News newNews = new News(newsRequest);
-        if(newsRequest.getEventId()!=null){
-            EventEntity event = eventRepository.findById(newsRequest.getEventId()).orElseThrow();
+    public NewsResponse addNews(NewsRequest r) {
+        if(r.getHeadline()==null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Nyhed skal have overskrift");
+        }
+
+        News newNews = new News(r);
+        if(r.getEventId()!=null){
+            EventEntity event = eventRepository.findById(r.getEventId()).orElseThrow();
             newNews.setEvent(event);
         }
         newNews = newsRepository.save(newNews);

@@ -56,8 +56,14 @@ public class EventService {
   }
   */
 
-  public EventResponse createEvent(EventRequest req){
-    EventEntity newEvent = new EventEntity(req);
+  public EventResponse createEvent(EventRequest r){
+    if(r.getTitle()==null){
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Begivenhed skal have en titel");
+    }
+    if(r.getDateTime()==null){
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Ugyldig dato");
+    }
+    EventEntity newEvent = new EventEntity(r);
 
     eventRepository.save(newEvent);
 
