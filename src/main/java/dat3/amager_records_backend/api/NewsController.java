@@ -38,14 +38,12 @@ public class NewsController {
     }
 
     @PostMapping()
-    NewsResponse addNews(MultipartHttpServletRequest request){
-        NewsRequest body = newsService.makeNewsRequestFromMulti(request);
+    NewsResponse addNews(@RequestBody NewsRequest body){
         return newsService.addNews(body);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Boolean> editNews(@PathVariable long id, MultipartHttpServletRequest request) {
-        NewsRequest body = newsService.makeNewsRequestFromMulti(request);
+    public ResponseEntity<Boolean> editNews(@PathVariable long id, @RequestBody NewsRequest body) {
         newsService.editNews(body,id);
         return ResponseEntity.ok(true);
     }

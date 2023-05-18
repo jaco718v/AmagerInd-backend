@@ -12,13 +12,13 @@ import java.util.Base64;
 @Setter
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-
 public class NewsResponse {
 
     private long id;
     private String encodedImage;
     private String textField;
     private String headline;
+    private Integer priority;
     //private Vinyl vinyl;
     //private Event event;
 
@@ -26,11 +26,11 @@ public class NewsResponse {
         this.id = news.getId();
         this.textField = news.getTextField();
         this.headline = news.getHeadline();
+        this.priority = news.getPriority();
         if(getImage){
-            if(news.getImg() != null){
-                this.encodedImage = Base64.getEncoder().encodeToString(news.getImg());
-            }
+            this.encodedImage = news.getEncodedImage();
         }
+    }
         /*
         if(news.getVinyl() != null){
             this.vinyl = news.getVinyl();
@@ -41,6 +41,6 @@ public class NewsResponse {
         */
 
 
-    }
+
 
 }

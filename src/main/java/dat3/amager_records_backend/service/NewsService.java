@@ -28,10 +28,12 @@ public class NewsService {
         this.eventRepository=eventRepository;
     }
 
+    /*
     public NewsRequest makeNewsRequestFromMulti(MultipartHttpServletRequest req){
 
         return new NewsRequest(req);
     }
+    */
 
     public long getTotal(){
         return newsRepository.count();
@@ -59,24 +61,29 @@ public class NewsService {
         return  newsResponse;
     }
 
-    public NewsResponse addNews(NewsRequest newsRequest) {
-        if(newsRequest.getEventId()!=null){
-            EventEntity event = eventRepository.findById(newsRequest.getEventId()).orElseThrow();
-            News newNews = newsRequest.getNewsEntity(newsRequest,event);
-            newNews = newsRepository.save(newNews);
-            return new NewsResponse(newNews,false);
+    public NewsResponse addNews(NewsRequest r) {
+        if(r.getHeadline()==null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Nyhed skal have overskrift");
         }
-        return null;
+
+        News newNews = new News(r);
+        if(r.getEventId()!=null){
+            EventEntity event = eventRepository.findById(r.getEventId()).orElseThrow();
+            newNews.setEvent(event);
+        }
+        newNews = newsRepository.save(newNews);
+        return new NewsResponse(newNews,false);
     }
 
     public ResponseEntity<Boolean> editNews(NewsRequest body, long id) {
 
         News newsToEdit =  findNews(id);
-        Optional.ofNullable(body.getImg()).ifPresent(newsToEdit::setImg);
+        Optional.ofNullable(body.getEncodedImage()).ifPresent(newsToEdit::setEncodedImage);
         Optional.ofNullable(body.getTextField()).ifPresent(newsToEdit::setTextField);
         Optional.ofNullable(body.getHeadline()).ifPresent(newsToEdit::setHeadline);
         //Optional.ofNullable(body.getVinyl()).ifPresent(newsToEdit::setVinyl);
         //Optional.ofNullable(body.getEvent()).ifPresent(newsToEdit::setEvent);
+        newsRepository.save(newsToEdit);
 
 
         return new ResponseEntity(true, HttpStatus.OK);

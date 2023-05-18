@@ -27,8 +27,9 @@ public class EventRequest {
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
   private LocalDateTime dateTime;
 
-  private byte[] image;
+  private String encodedImage;
 
+  /*
   public LocalDateTime stringToDate(String dateString){
     try {
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -58,6 +59,7 @@ public class EventRequest {
     this.dateTime = stringToDate(r.getParameter("dateTime").replaceAll("^\"|\"$", ""));
     this.image = imageToByte(r.getFile("image"));
   }
+  */
 
   public EventRequest(String title, String description, LocalDateTime dateTime) {
     this.title = title;

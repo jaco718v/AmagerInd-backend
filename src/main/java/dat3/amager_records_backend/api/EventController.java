@@ -3,6 +3,7 @@ package dat3.amager_records_backend.api;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import dat3.amager_records_backend.dto.EventRequest;
 import dat3.amager_records_backend.dto.EventResponse;
+import dat3.amager_records_backend.dto.NewsRequest;
 import dat3.amager_records_backend.service.EventService;
 import jakarta.annotation.security.PermitAll;
 import org.springframework.data.domain.Pageable;
@@ -53,16 +54,15 @@ public class EventController {
 
   //@PreAuthorize("hasAuthority('ADMIN')")
   @PostMapping
-  public EventResponse createEvent(MultipartHttpServletRequest request){
-    EventRequest req = eventService.createEventRequestFromMulti(request);
-    return eventService.createEvent(req);
+  public EventResponse createEvent(@RequestBody EventRequest body){
+    return eventService.createEvent(body);
   }
   //@PreAuthorize("hasAuthority('ADMIN')")
   @PutMapping("{id}")
-  public EventResponse updateEvent(MultipartHttpServletRequest request,
+  public EventResponse updateEvent(@RequestBody EventRequest body,
                                    @PathVariable long id){
-    EventRequest req = eventService.createEventRequestFromMulti(request);
-    return eventService.updateEvent(req, id);
+
+    return eventService.updateEvent(body, id);
   }
 
   //@PreAuthorize("hasAuthority('ADMIN')")
