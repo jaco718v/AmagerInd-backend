@@ -48,9 +48,8 @@ public class EventResponse {
     this.created = e.getCreated();
     this.dateMonth = dateMonthString(e.getDateTime());
     this.dayTime = dayTime(e.getDateTime());
-    if(getFull){
-      if(e.getImage() != null){
-        this.encodedImage = Base64.getEncoder().encodeToString(e.getImage());
+    if(getFull){{
+        this.encodedImage = e.getEncodedImage();
       }
     }
   }
