@@ -48,14 +48,22 @@ public class EventService {
     return eventResponseList;
   }
 
+  /*
   public EventRequest createEventRequestFromMulti(MultipartHttpServletRequest request){
 
     return new EventRequest(request);
 
   }
+  */
 
-  public EventResponse createEvent(EventRequest req){
-    EventEntity newEvent = new EventEntity(req);
+  public EventResponse createEvent(EventRequest r){
+    if(r.getTitle()==null){
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Begivenhed skal have en titel");
+    }
+    if(r.getDateTime()==null){
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Ugyldig dato");
+    }
+    EventEntity newEvent = new EventEntity(r);
 
     eventRepository.save(newEvent);
 
@@ -76,8 +84,8 @@ public class EventService {
     if(req.getDateTime() != null){
       event.setDateTime(req.getDateTime());
     }
-    if(req.getImage()!=null){
-      event.setImage(req.getImage());
+    if(req.getEncodedImage()!=null){
+      event.setEncodedImage(req.getEncodedImage());
     }
 
     eventRepository.save(event);

@@ -48,9 +48,8 @@ public class EventResponse {
     this.created = e.getCreated();
     this.dateMonth = dateMonthString(e.getDateTime());
     this.dayTime = dayTime(e.getDateTime());
-    if(getFull){
-      if(e.getImage() != null){
-        this.encodedImage = Base64.getEncoder().encodeToString(e.getImage());
+    if(getFull){{
+        this.encodedImage = e.getEncodedImage();
       }
     }
   }
@@ -92,6 +91,7 @@ public class EventResponse {
   public String dayTime(LocalDateTime localDateTime) {
     int hour = localDateTime.getHour();
     int minute = localDateTime.getMinute();
+    String formattedMinute = String.format("%02d", minute);
     DayOfWeek weekday = localDateTime.getDayOfWeek();
 
     String danishWeekDay;
@@ -112,7 +112,7 @@ public class EventResponse {
       danishWeekDay = "Søndag";
     }
 
-    return danishWeekDay + " kl. " + hour + "." + minute;
+    return danishWeekDay + " kl. " + hour + "." + formattedMinute;
 
   }
 }

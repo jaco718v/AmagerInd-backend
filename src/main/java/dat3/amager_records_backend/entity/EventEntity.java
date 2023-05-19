@@ -25,9 +25,8 @@ public class EventEntity {
 
   private String description;
 
-  @Lob
-  @Column(name = "image", columnDefinition = "MEDIUMBLOB")
-  private byte[] image;
+  @Column(name = "base64_image", length = 16777215, columnDefinition = "mediumtext")
+  private String encodedImage;
 
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
   private LocalDateTime dateTime;
@@ -40,7 +39,7 @@ public class EventEntity {
     this.title = e.getTitle();
     this.description = e.getDescription();
     this.dateTime = e.getDateTime();
-    this.image = e.getImage();
+    this.encodedImage = e.getEncodedImage();
   }
 
   public EventEntity(String title, String description, LocalDateTime dateTime) {

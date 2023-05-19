@@ -54,13 +54,11 @@ public class SetupDevUsers implements ApplicationRunner {
         System.out.println("**** ** ON YOUR REMOTE DATABASE                 ******************************");
         System.out.println("******************************************************************************");
 
-        News news1 = new News(null, "her Står noget text", "meget vigtig!",11);
-        newsRepository.save(news1);
+        //News news1 = new News("hej","her Står noget text", "meget vigtig!");
         //EventRequest event = new EventRequest("Event","Koncert","Koncert med George Michael", LocalDateTime.now());
         //EventEntity eventEntity = new EventEntity(event);
         //eventRepository.save(eventEntity);
-
-
+        //newsRepository.save(news1);
 
 
         /*

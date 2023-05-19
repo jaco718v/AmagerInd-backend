@@ -20,14 +20,14 @@ import java.io.IOException;
 
 public class NewsRequest {
 
-    private byte[] img;
+    private String encodedImage;
     private String textField;
     private String headline;
     private Long vinylId;
     private Long eventId;
     private int priority;
 
-
+    /*
     public byte[] imageToByte(MultipartFile image){
         if(image != null){
             try{
@@ -39,18 +39,14 @@ public class NewsRequest {
         }
         return null;
     }
-
-
-    public News getNewsEntity(NewsRequest newsRequest,EventEntity event){
-        return new News(newsRequest.getImg(), newsRequest.textField, newsRequest.headline, newsRequest.priority, event);
-    }
+    */
     /*
     public News getNewsEntity(NewsRequest newsRequest, Vinyl vinyl){
         return new News(newsRequest.img, newsRequest.textField, newsRequest.headline,vinyl);
     }
      */
     public NewsRequest(News news){
-        this.img = news.getImg();
+        this.encodedImage = news.getEncodedImage();
         this.textField = news.getTextField();
         this.headline = news.getHeadline();
         this.priority = news.getPriority();
@@ -65,15 +61,14 @@ public class NewsRequest {
 
          */
     }
+    /*
     public NewsRequest(MultipartHttpServletRequest r) {
         this.img = imageToByte(r.getFile("image"));
         this.textField = r.getParameter("textField").replaceAll("^\"|\"$", "");
 
         this.headline = r.getParameter("headline").replaceAll("^\"|\"$", "");
 
-        ;
-        this.priority = Integer.parseInt(r.getParameter("priority").replaceAll("^\"|\"$", ""));
-        ;
+        //this.priority = Integer.parseInt(r.getParameter("priority").replaceAll("^\"|\"$", ""));
 
 
         if(!r.getParameter(("event")).equals("\"\"")){
@@ -81,4 +76,5 @@ public class NewsRequest {
         this.eventId = Long.parseLong(r.getParameter("event").replaceAll("^\"|\"$", ""));
         }
     }
+    */
 }
