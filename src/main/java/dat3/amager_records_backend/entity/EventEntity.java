@@ -22,7 +22,7 @@ public class EventEntity {
   private long id;
 
   private String title;
-
+  @Column(columnDefinition = "text")
   private String description;
 
   @Column(name = "base64_image", length = 16777215, columnDefinition = "mediumtext")
