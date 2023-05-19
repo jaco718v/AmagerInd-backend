@@ -84,8 +84,7 @@ public class NewsService {
         //Optional.ofNullable(body.getVinyl()).ifPresent(newsToEdit::setVinyl);
         //Optional.ofNullable(body.getEvent()).ifPresent(newsToEdit::setEvent);
         newsRepository.save(newsToEdit);
-
-
+      
         return new ResponseEntity(true, HttpStatus.OK);
     }
 
