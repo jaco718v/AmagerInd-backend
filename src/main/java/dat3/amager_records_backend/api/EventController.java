@@ -52,12 +52,12 @@ public class EventController {
     return eventService.getAllEvents(pageable);
   }
 
-  //@PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('ADMIN')")
   @PostMapping
   public EventResponse createEvent(@RequestBody EventRequest body){
     return eventService.createEvent(body);
   }
-  //@PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('ADMIN')")
   @PutMapping("{id}")
   public EventResponse updateEvent(@RequestBody EventRequest body,
                                    @PathVariable long id){
@@ -65,7 +65,7 @@ public class EventController {
     return eventService.updateEvent(body, id);
   }
 
-  //@PreAuthorize("hasAuthority('ADMIN')")
+  @PreAuthorize("hasAuthority('ADMIN')")
   @DeleteMapping("{id}")
   public ResponseEntity<String> deleteEvent(@PathVariable long id){
     return eventService.deleteEvent(id);

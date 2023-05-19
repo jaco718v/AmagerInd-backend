@@ -81,7 +81,6 @@ public class SecurityConfig {
             //Obviously we need to be able to login without being logged in :-)
             .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
 
-            .requestMatchers(HttpMethod.GET, "/api/events/**").permitAll()
             //Required in order to use the h2-console
             .requestMatchers("/h2*/**").permitAll()
 
@@ -92,17 +91,8 @@ public class SecurityConfig {
             .requestMatchers("/api/cookie/**").permitAll()
 
             //Allow anonymous access to this endpoint
-            .requestMatchers(HttpMethod.GET,"/api/demo/anonymous").permitAll()
             .requestMatchers(HttpMethod.GET,"/api/vinyl/**").permitAll()
-            .requestMatchers(HttpMethod.POST,"/api/vinyl/**").permitAll()
-            .requestMatchers(HttpMethod.PUT,"/api/vinyl/**").permitAll()
-            .requestMatchers(HttpMethod.DELETE,"/api/vinyl/**").permitAll()
-            .requestMatchers(HttpMethod.POST,"/api/events/**").permitAll()
-            .requestMatchers(HttpMethod.POST,"/api/news/**").permitAll()
             .requestMatchers(HttpMethod.GET,"/api/events/**").permitAll()
-            .requestMatchers(HttpMethod.GET,"/api/news/**").permitAll()
-
-            .requestMatchers(HttpMethod.POST,"/api/news/**").permitAll()
             .requestMatchers(HttpMethod.GET,"/api/news/**").permitAll()
 
             //necessary to allow for "nice" JSON Errors

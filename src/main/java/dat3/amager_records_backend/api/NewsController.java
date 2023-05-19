@@ -6,6 +6,7 @@ import dat3.amager_records_backend.service.NewsService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -36,12 +37,12 @@ public class NewsController {
     NewsResponse getNewsById(@PathVariable long id) throws Exception {
         return newsService.findNewsById(id);
     }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping()
     NewsResponse addNews(@RequestBody NewsRequest body){
         return newsService.addNews(body);
     }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("{id}")
     public ResponseEntity<Boolean> editNews(@PathVariable long id, @RequestBody NewsRequest body) {
         newsService.editNews(body,id);
@@ -58,7 +59,7 @@ public class NewsController {
     }
 
      */
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("{id}")
     void deleteNewsById(@PathVariable long id) {
         newsService.deleteNewsById(id);
