@@ -16,6 +16,7 @@ import java.io.IOException;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 
 public class NewsRequest {
 
