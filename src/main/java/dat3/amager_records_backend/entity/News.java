@@ -22,6 +22,7 @@ public class News {
 
     @Column(name = "encoded_image", length = 16777215, columnDefinition = "mediumtext")
     private String encodedImage;
+    @Column(columnDefinition = "text")
     private String textField;
     private String headline;
     private int priority;
