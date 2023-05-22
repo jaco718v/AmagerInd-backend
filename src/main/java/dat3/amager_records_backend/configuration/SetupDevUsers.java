@@ -61,7 +61,7 @@ public class SetupDevUsers implements ApplicationRunner {
         //newsRepository.save(news1);
 
 
-        /*
+        
         UserWithRoles user1 = new UserWithRoles("user1", passwordUsedByAll, "user1@a.dk");
         UserWithRoles user2 = new UserWithRoles("user2", passwordUsedByAll, "user2@a.dk");
         UserWithRoles user3 = new UserWithRoles("user3", passwordUsedByAll, "user3@a.dk");
@@ -75,7 +75,7 @@ public class SetupDevUsers implements ApplicationRunner {
         userWithRolesRepository.save(user2);
         userWithRolesRepository.save(user3);
         userWithRolesRepository.save(user4);
-         */
+        
 
         Vinyl vinyl = new Vinyl("David Bowie", "Hunky Dory", "UK", 1971, "SF 8244", "Rock", "Billede", 3000);
         Vinyl vinyl2 = new Vinyl("Pink Floyd", "The Wall", "UK", 1980, "LSP 3467", "Rock", "Billede", 200);
