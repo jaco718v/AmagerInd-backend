@@ -18,6 +18,8 @@ public class NewsResponse {
     private String encodedImage;
     private String textField;
     private String headline;
+
+    private int test = 2;
     private Integer priority;
     //private Vinyl vinyl;
     //private Event event;
